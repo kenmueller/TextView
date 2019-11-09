@@ -37,18 +37,18 @@
 import SwiftUI
 
 struct ContentView: View {
-	@State var input = ""
-	@State var isEditing = false
-	
+    @State var input = ""
+    @State var isEditing = false
+    
     var body: some View {
-		VStack {
-			Button(action: {
-				self.isEditing.toggle()
-			}) {
-				Text("\(isEditing ? "Stop" : "Start") editing")
-			}
-			TextView(text: $input, isEditing: $isEditing)
-		}
+        VStack {
+            Button(action: {
+                self.isEditing.toggle()
+            }) {
+                Text("\(isEditing ? "Stop" : "Start") editing")
+            }
+            TextView(text: $input, isEditing: $isEditing)
+        }
     }
 }
 ```
