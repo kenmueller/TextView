@@ -35,6 +35,7 @@
 
 ```swift
 import SwiftUI
+import TextView
 
 struct ContentView: View {
     @State var input = ""
