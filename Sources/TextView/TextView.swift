@@ -31,7 +31,7 @@ public struct TextView: UIViewRepresentable {
 		}
 	}
 	
-	public static let defaultFont = UIFont(name: "HelveticaNeue", size: 15) ?? .init()
+	public static let defaultFont = UIFont.preferredFont(forTextStyle: .body)
 	
 	@Binding private var text: String
 	@Binding private var isEditing: Bool

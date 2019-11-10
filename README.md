@@ -17,8 +17,8 @@
 	- If passed a `Binding<Bool>`, the `TextView` will modify the value when it is selected and deselected
 	- If passed a `Bool`, the `TextView` will initially show or hide the keyboard based on the value passed in
 - `textAlignment: TextView.TextAlignment = .left`
-- `font: UIFont = UIFont(name: "HelveticaNeue", size: 15)`
-	- By default, the family is Helvetica Nueue, and the size is 15.
+- `font: UIFont = UIFont.preferredFont(forTextStyle: .body)`
+	- By default, the font is a body-style font
 - `textColor: UIColor = .black`
 - `backgroundColor: UIColor = .white`
 - `contentType: TextView.ContentType = .name`
