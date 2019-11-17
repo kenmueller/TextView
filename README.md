@@ -13,15 +13,15 @@
 ## Inputs
 
 - `text: Binding<String>`
-- `isEditing: Binding<Bool> or Bool`
-	- If passed a `Binding<Bool>`, the `TextView` will modify the value when it is selected and deselected
-	- If passed a `Bool`, the `TextView` will initially show or hide the keyboard based on the value passed in
+- `isEditing: Binding<Bool>`
+	- The `TextView` will modify the value when it is selected and deselected
+	- You can also modify this value to automatically select and deselect the `TextView`
 - `textAlignment: TextView.TextAlignment = .left`
-- `font: UIFont = UIFont.preferredFont(forTextStyle: .body)`
+- `font: UIFont = .preferredFont(forTextStyle: .body)`
 	- By default, the font is a body-style font
 - `textColor: UIColor = .black`
 - `backgroundColor: UIColor = .white`
-- `contentType: TextView.ContentType = .name`
+- `contentType: TextView.ContentType? = nil`
 	- For semantic purposes only
 - `autocorrection: TextView.Autocorrection = .default`
 - `autocapitalization: TextView.Autocapitalization = .sentences`

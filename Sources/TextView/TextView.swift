@@ -14,20 +14,22 @@ public struct TextView: UIViewRepresentable {
 			self.parent = parent
 		}
 		
+		private func setIsEditing(to value: Bool) {
+			DispatchQueue.main.async {
+				self.parent.isEditing = value
+			}
+		}
+		
 		public func textViewDidChange(_ textView: UITextView) {
 			parent.text = textView.text
 		}
 		
 		public func textViewDidBeginEditing(_: UITextView) {
-			DispatchQueue.main.async {
-				self.parent.isEditing = true
-			}
+			setIsEditing(to: true)
 		}
 		
 		public func textViewDidEndEditing(_: UITextView) {
-			DispatchQueue.main.async {
-				self.parent.isEditing = false
-			}
+			setIsEditing(to: false)
 		}
 	}
 	
@@ -81,38 +83,6 @@ public struct TextView: UIViewRepresentable {
 		self.isUserInteractionEnabled = isUserInteractionEnabled
 	}
 	
-	public init(
-		text: Binding<String>,
-		isEditing: Bool,
-		textAlignment: TextAlignment = .left,
-		font: UIFont = Self.defaultFont,
-		textColor: UIColor = .black,
-		backgroundColor: UIColor = .white,
-		contentType: ContentType? = nil,
-		autocorrection: Autocorrection = .default,
-		autocapitalization: Autocapitalization = .sentences,
-		isSecure: Bool = false,
-		isEditable: Bool = true,
-		isSelectable: Bool = true,
-		isScrollingEnabled: Bool = true,
-		isUserInteractionEnabled: Bool = true
-	) {
-		_text = text
-		_isEditing = .constant(isEditing)
-		self.textAlignment = textAlignment
-		self.font = font
-		self.textColor = textColor
-		self.backgroundColor = backgroundColor
-		self.contentType = contentType
-		self.autocorrection = autocorrection
-		self.autocapitalization = autocapitalization
-		self.isSecure = isSecure
-		self.isEditable = isEditable
-		self.isSelectable = isSelectable
-		self.isScrollingEnabled = isScrollingEnabled
-		self.isUserInteractionEnabled = isUserInteractionEnabled
-	}
-	
 	public func makeCoordinator() -> Coordinator {
 		.init(self)
 	}
@@ -137,10 +107,8 @@ public struct TextView: UIViewRepresentable {
 	
 	public func updateUIView(_ textView: UITextView, context _: Context) {
 		textView.text = text
-		if isEditing {
-			textView.becomeFirstResponder()
-		} else {
-			textView.resignFirstResponder()
-		}
+		_ = isEditing
+			? textView.becomeFirstResponder()
+			: textView.resignFirstResponder()
 	}
 }
