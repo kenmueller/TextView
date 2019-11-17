@@ -40,7 +40,7 @@ public struct TextView: UIViewRepresentable {
 	private let font: UIFont
 	private let textColor: UIColor
 	private let backgroundColor: UIColor
-	private let contentType: ContentType
+	private let contentType: ContentType?
 	private let autocorrection: Autocorrection
 	private let autocapitalization: Autocapitalization
 	private let isSecure: Bool
@@ -56,7 +56,7 @@ public struct TextView: UIViewRepresentable {
 		font: UIFont = Self.defaultFont,
 		textColor: UIColor = .black,
 		backgroundColor: UIColor = .white,
-		contentType: ContentType = .name,
+		contentType: ContentType? = nil,
 		autocorrection: Autocorrection = .default,
 		autocapitalization: Autocapitalization = .sentences,
 		isSecure: Bool = false,
@@ -88,7 +88,7 @@ public struct TextView: UIViewRepresentable {
 		font: UIFont = Self.defaultFont,
 		textColor: UIColor = .black,
 		backgroundColor: UIColor = .white,
-		contentType: ContentType = .name,
+		contentType: ContentType? = nil,
 		autocorrection: Autocorrection = .default,
 		autocapitalization: Autocapitalization = .sentences,
 		isSecure: Bool = false,
