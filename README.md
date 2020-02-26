@@ -16,10 +16,15 @@
 - `isEditing: Binding<Bool>`
 	- The `TextView` will modify the value when it is selected and deselected
 	- You can also modify this value to automatically select and deselect the `TextView`
+- `placeholder: String? = nil`
 - `textAlignment: TextView.TextAlignment = .left`
+- `placeholderAlignment: Alignment = .topLeading`
+- `placeholderHorizontalPadding: CGFloat = 4.5`
+- `placeholderVerticalPadding: CGFloat = 7`
 - `font: UIFont = .preferredFont(forTextStyle: .body)`
 	- By default, the font is a body-style font
 - `textColor: UIColor = .black`
+- `placeholderColor: Color = .gray`
 - `backgroundColor: UIColor = .white`
 - `contentType: TextView.ContentType? = nil`
 	- For semantic purposes only
@@ -48,7 +53,11 @@ struct ContentView: View {
             }) {
                 Text("\(isEditing ? "Stop" : "Start") editing")
             }
-            TextView(text: $input, isEditing: $isEditing)
+            TextView(
+                text: $input,
+                isEditing: $isEditing,
+                placeholder: "Enter text here"
+            )
         }
     }
 }
