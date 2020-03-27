@@ -149,7 +149,7 @@ public struct TextView: View {
 		placeholderVerticalPadding: CGFloat = 7,
 		font: UIFont = Self.defaultFont,
 		textColor: UIColor = .label,
-		placeholderColor: Color = Color(.placeholderText),
+		placeholderColor: Color = .init(.placeholderText),
 		backgroundColor: UIColor = .clear,
 		contentType: ContentType? = nil,
 		autocorrection: Autocorrection = .default,
