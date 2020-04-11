@@ -106,7 +106,7 @@ public struct TextView: View {
 			textView.isUserInteractionEnabled = isUserInteractionEnabled
 			
 			DispatchQueue.main.async {
-				_ = isEditing
+				_ = self.isEditing
 					? textView.becomeFirstResponder()
 					: textView.resignFirstResponder()
 			}
