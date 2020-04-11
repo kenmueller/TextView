@@ -105,9 +105,11 @@ public struct TextView: View {
 			textView.isScrollEnabled = isScrollingEnabled
 			textView.isUserInteractionEnabled = isUserInteractionEnabled
 			
-			_ = isEditing
-				? textView.becomeFirstResponder()
-				: textView.resignFirstResponder()
+			DispatchQueue.main.async {
+				_ = isEditing
+					? textView.becomeFirstResponder()
+					: textView.resignFirstResponder()
+			}
 		}
 	}
 	
@@ -220,9 +222,7 @@ public struct TextView: View {
 							height: geometry.size.height,
 							alignment: self.placeholderAlignment
 						)
-						.onTapGesture {
-							self.isEditing = true
-						}
+						.allowsHitTesting(false)
 				}
 			}
 		}
