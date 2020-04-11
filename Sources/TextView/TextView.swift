@@ -222,7 +222,9 @@ public struct TextView: View {
 							height: geometry.size.height,
 							alignment: self.placeholderAlignment
 						)
-						.allowsHitTesting(false)
+						.onTapGesture {
+							self.isEditing = true
+						}
 				}
 			}
 		}
