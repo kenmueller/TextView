@@ -44,6 +44,7 @@ public struct TextView: View {
 		private let font: UIFont
 		private let textColor: UIColor
 		private let backgroundColor: UIColor
+		private let returnType: UIReturnKeyType
 		private let contentType: ContentType?
 		private let autocorrection: Autocorrection
 		private let autocapitalization: Autocapitalization
@@ -64,6 +65,7 @@ public struct TextView: View {
 			font: UIFont,
 			textColor: UIColor,
 			backgroundColor: UIColor,
+			returnType: UIReturnKeyType,
 			contentType: ContentType?,
 			autocorrection: Autocorrection,
 			autocapitalization: Autocapitalization,
@@ -84,6 +86,7 @@ public struct TextView: View {
 			self.font = font
 			self.textColor = textColor
 			self.backgroundColor = backgroundColor
+			self.returnType = returnType
 			self.contentType = contentType
 			self.autocorrection = autocorrection
 			self.autocapitalization = autocapitalization
@@ -124,6 +127,7 @@ public struct TextView: View {
 			textView.font = font
 			textView.textColor = textColor
 			textView.backgroundColor = backgroundColor
+			textView.returnKeyType = returnType
 			textView.textContentType = contentType
 			textView.autocorrectionType = autocorrection
 			textView.autocapitalizationType = autocapitalization
@@ -170,6 +174,7 @@ public struct TextView: View {
 	private let textColor: UIColor
 	private let placeholderColor: Color
 	private let backgroundColor: UIColor
+	private let returnType: UIReturnKeyType
 	private let contentType: ContentType?
 	private let autocorrection: Autocorrection
 	private let autocapitalization: Autocapitalization
@@ -195,6 +200,7 @@ public struct TextView: View {
 		textColor: UIColor = .label,
 		placeholderColor: Color = .init(.placeholderText),
 		backgroundColor: UIColor = .clear,
+		returnType: UIReturnKeyType = .done,
 		contentType: ContentType? = nil,
 		autocorrection: Autocorrection = .default,
 		autocapitalization: Autocapitalization = .sentences,
@@ -220,6 +226,7 @@ public struct TextView: View {
 		self.textColor = textColor
 		self.placeholderColor = placeholderColor
 		self.backgroundColor = backgroundColor
+		self.returnType = returnType
 		self.contentType = contentType
 		self.autocorrection = autocorrection
 		self.autocapitalization = autocapitalization
@@ -246,6 +253,7 @@ public struct TextView: View {
 			font: font,
 			textColor: textColor,
 			backgroundColor: backgroundColor,
+			returnType: returnType,
 			contentType: contentType,
 			autocorrection: autocorrection,
 			autocapitalization: autocapitalization,
