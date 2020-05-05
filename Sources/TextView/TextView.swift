@@ -46,6 +46,7 @@ public struct TextView: View {
 		private let isSelectable: Bool
 		private let isScrollingEnabled: Bool
 		private let isUserInteractionEnabled: Bool
+        private let shouldWaitUntilCommit: Bool
 		
 		public init(
 			text: Binding<String>,
@@ -61,7 +62,8 @@ public struct TextView: View {
 			isEditable: Bool,
 			isSelectable: Bool,
 			isScrollingEnabled: Bool,
-			isUserInteractionEnabled: Bool
+			isUserInteractionEnabled: Bool,
+            shouldWaitUntilCommit: Bool
 		) {
 			_text = text
 			_isEditing = isEditing
@@ -78,6 +80,7 @@ public struct TextView: View {
 			self.isSelectable = isSelectable
 			self.isScrollingEnabled = isScrollingEnabled
 			self.isUserInteractionEnabled = isUserInteractionEnabled
+            self.shouldWaitUntilCommit = shouldWaitUntilCommit
 		}
 		
 		public func makeCoordinator() -> Coordinator {
@@ -91,7 +94,11 @@ public struct TextView: View {
 		}
 		
 		public func updateUIView(_ textView: UITextView, context _: Context) {
-			textView.text = text
+            if shouldWaitUntilCommit
+                ? textView.markedTextRange == nil
+                : true {
+                textView.text = text
+            }
 			textView.textAlignment = textAlignment
 			textView.font = font
 			textView.textColor = textColor
@@ -140,6 +147,7 @@ public struct TextView: View {
 	private let isSelectable: Bool
 	private let isScrollingEnabled: Bool
 	private let isUserInteractionEnabled: Bool
+    private let shouldWaitUntilCommit: Bool
 	
 	public init(
 		text: Binding<String>,
@@ -160,7 +168,8 @@ public struct TextView: View {
 		isEditable: Bool = true,
 		isSelectable: Bool = true,
 		isScrollingEnabled: Bool = true,
-		isUserInteractionEnabled: Bool = true
+		isUserInteractionEnabled: Bool = true,
+        shouldWaitUntilCommit: Bool = true
 	) {
 		_text = text
 		_isEditing = isEditing
@@ -182,6 +191,7 @@ public struct TextView: View {
 		self.isSelectable = isSelectable
 		self.isScrollingEnabled = isScrollingEnabled
 		self.isUserInteractionEnabled = isUserInteractionEnabled
+        self.shouldWaitUntilCommit = shouldWaitUntilCommit
 	}
 	
 	private var _placeholder: String? {
@@ -203,7 +213,8 @@ public struct TextView: View {
 			isEditable: isEditable,
 			isSelectable: isSelectable,
 			isScrollingEnabled: isScrollingEnabled,
-			isUserInteractionEnabled: isUserInteractionEnabled
+			isUserInteractionEnabled: isUserInteractionEnabled,
+            shouldWaitUntilCommit: shouldWaitUntilCommit
 		)
 	}
 	
