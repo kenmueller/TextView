@@ -35,6 +35,9 @@
 - `isSelectable: Bool = true`
 - `isScrollingEnabled: Bool = true`
 - `isUserInteractionEnabled: Bool = true`
+- `shouldWaitUntilCommit: Bool = true`
+	- For multi-stage input methods, setting this to `false` would make TextView completely unusable.
+	- This option will ignore text changes when the user is still composing characters.
 
 ## Example
 
