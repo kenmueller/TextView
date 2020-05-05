@@ -94,9 +94,7 @@ public struct TextView: View {
 		}
 		
 		public func updateUIView(_ textView: UITextView, context _: Context) {
-			if shouldWaitUntilCommit
-				? textView.markedTextRange == nil
-				: true {
+			if !shouldWaitUntilCommit || textView.markedTextRange == nil {
 				textView.text = text
 			}
 			textView.textAlignment = textAlignment
