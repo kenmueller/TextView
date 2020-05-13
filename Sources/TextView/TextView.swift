@@ -95,9 +95,9 @@ public struct TextView: View {
 		
 		public func updateUIView(_ textView: UITextView, context _: Context) {
 			if !shouldWaitUntilCommit || textView.markedTextRange == nil {
-                let selectedRange = textView.selectedRange
+				let selectedRange = textView.selectedRange
 				textView.text = text
-                textView.selectedRange = selectedRange
+				textView.selectedRange = selectedRange
 			}
 			textView.textAlignment = textAlignment
 			textView.font = font
