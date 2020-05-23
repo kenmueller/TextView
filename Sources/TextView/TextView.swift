@@ -96,12 +96,11 @@ public struct TextView: View {
 		public func updateUIView(_ textView: UITextView, context _: Context) {
 			if !shouldWaitUntilCommit || textView.markedTextRange == nil {
 				let textViewWasEmpty = textView.text.isEmpty
-				var selectedRange = textView.selectedTextRange
+				let selectedRange = textView.selectedTextRange
 				textView.text = text
-				if textViewWasEmpty {
-					selectedRange = textView.textRange(from: textView.endOfDocument, to: textView.endOfDocument)
-				}
-				textView.selectedTextRange = selectedRange
+                textView.selectedTextRange = textViewWasEmpty
+                    ? textView.textRange(from: textView.endOfDocument, to: textView.endOfDocument)
+                    : selectedRange
 			}
 			textView.textAlignment = textAlignment
 			textView.font = font
