@@ -98,9 +98,9 @@ public struct TextView: View {
 				let textViewWasEmpty = textView.text.isEmpty
 				let selectedRange = textView.selectedTextRange
 				textView.text = text
-                textView.selectedTextRange = textViewWasEmpty
-                    ? textView.textRange(from: textView.endOfDocument, to: textView.endOfDocument)
-                    : selectedRange
+				textView.selectedTextRange = textViewWasEmpty
+					? textView.textRange(from: textView.endOfDocument, to: textView.endOfDocument)
+					: selectedRange
 			}
 			textView.textAlignment = textAlignment
 			textView.font = font
