@@ -35,6 +35,8 @@ public struct TextView: View {
 		@Binding private var isEditing: Bool
 		
 		private let textAlignment: TextAlignment
+		private let textHorizontalPadding: CGFloat
+		private let textVerticalPadding: CGFloat
 		private let font: UIFont
 		private let textColor: UIColor
 		private let backgroundColor: UIColor
@@ -52,6 +54,8 @@ public struct TextView: View {
 			text: Binding<String>,
 			isEditing: Binding<Bool>,
 			textAlignment: TextAlignment,
+			textHorizontalPadding: CGFloat,
+			textVerticalPadding: CGFloat,
 			font: UIFont,
 			textColor: UIColor,
 			backgroundColor: UIColor,
@@ -69,6 +73,8 @@ public struct TextView: View {
 			_isEditing = isEditing
 			
 			self.textAlignment = textAlignment
+			self.textHorizontalPadding = textHorizontalPadding
+			self.textVerticalPadding = textVerticalPadding
 			self.font = font
 			self.textColor = textColor
 			self.backgroundColor = backgroundColor
@@ -96,12 +102,17 @@ public struct TextView: View {
 		public func updateUIView(_ textView: UITextView, context _: Context) {
 			if !shouldWaitUntilCommit || textView.markedTextRange == nil {
 				let textViewWasEmpty = textView.text.isEmpty
-				let selectedRange = textView.selectedTextRange
+				let oldSelectedRange = textView.selectedTextRange
+				
 				textView.text = text
 				textView.selectedTextRange = textViewWasEmpty
-					? textView.textRange(from: textView.endOfDocument, to: textView.endOfDocument)
-					: selectedRange
+					? textView.textRange(
+						from: textView.endOfDocument,
+						to: textView.endOfDocument
+					)
+					: oldSelectedRange
 			}
+			
 			textView.textAlignment = textAlignment
 			textView.font = font
 			textView.textColor = textColor
@@ -114,6 +125,13 @@ public struct TextView: View {
 			textView.isSelectable = isSelectable
 			textView.isScrollEnabled = isScrollingEnabled
 			textView.isUserInteractionEnabled = isUserInteractionEnabled
+			
+			textView.textContainerInset = .init(
+				top: textVerticalPadding,
+				left: textHorizontalPadding,
+				bottom: textVerticalPadding,
+				right: textHorizontalPadding
+			)
 			
 			DispatchQueue.main.async {
 				_ = self.isEditing
@@ -135,6 +153,8 @@ public struct TextView: View {
 	
 	private let placeholder: String?
 	private let textAlignment: TextAlignment
+	private let textHorizontalPadding: CGFloat
+	private let textVerticalPadding: CGFloat
 	private let placeholderAlignment: Alignment
 	private let placeholderHorizontalPadding: CGFloat
 	private let placeholderVerticalPadding: CGFloat
@@ -157,6 +177,8 @@ public struct TextView: View {
 		isEditing: Binding<Bool>,
 		placeholder: String? = nil,
 		textAlignment: TextAlignment = .left,
+		textHorizontalPadding: CGFloat = 0,
+		textVerticalPadding: CGFloat = 7,
 		placeholderAlignment: Alignment = .topLeading,
 		placeholderHorizontalPadding: CGFloat = 4.5,
 		placeholderVerticalPadding: CGFloat = 7,
@@ -179,6 +201,8 @@ public struct TextView: View {
 		
 		self.placeholder = placeholder
 		self.textAlignment = textAlignment
+		self.textHorizontalPadding = textHorizontalPadding
+		self.textVerticalPadding = textVerticalPadding
 		self.placeholderAlignment = placeholderAlignment
 		self.placeholderHorizontalPadding = placeholderHorizontalPadding
 		self.placeholderVerticalPadding = placeholderVerticalPadding
@@ -206,6 +230,8 @@ public struct TextView: View {
 			text: $text,
 			isEditing: $isEditing,
 			textAlignment: textAlignment,
+			textHorizontalPadding: textHorizontalPadding,
+			textVerticalPadding: textVerticalPadding,
 			font: font,
 			textColor: textColor,
 			backgroundColor: backgroundColor,

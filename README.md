@@ -18,6 +18,8 @@
 	- You can also modify this value to automatically select and deselect the `TextView`
 - `placeholder: String? = nil`
 - `textAlignment: TextView.TextAlignment = .left`
+- `textHorizontalPadding: CGFloat = 0`
+- `textVerticalPadding: CGFloat = 7`
 - `placeholderAlignment: Alignment = .topLeading`
 - `placeholderHorizontalPadding: CGFloat = 4.5`
 - `placeholderVerticalPadding: CGFloat = 7`
@@ -36,7 +38,7 @@
 - `isScrollingEnabled: Bool = true`
 - `isUserInteractionEnabled: Bool = true`
 - `shouldWaitUntilCommit: Bool = true`
-	- For multi-stage input methods, setting this to `false` would make TextView completely unusable.
+	- For multi-stage input methods, setting this to `false` would make the `TextView` completely unusable.
 	- This option will ignore text changes when the user is still composing characters.
 
 ## Example
@@ -46,7 +48,7 @@ import SwiftUI
 import TextView
 
 struct ContentView: View {
-    @State var input = ""
+    @State var text = ""
     @State var isEditing = false
     
     var body: some View {
@@ -57,7 +59,7 @@ struct ContentView: View {
                 Text("\(isEditing ? "Stop" : "Start") editing")
             }
             TextView(
-                text: $input,
+                text: $text,
                 isEditing: $isEditing,
                 placeholder: "Enter text here"
             )
