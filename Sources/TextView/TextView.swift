@@ -18,6 +18,13 @@ public struct TextView: View {
 				}
 			}
 			
+			public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+				guard let shouldChange = parent.shouldChange else {
+					return true
+				}
+				return shouldChange(range, text)
+			}
+			
 			public func textViewDidChange(_ textView: UITextView) {
 				parent.text = textView.text
 			}
@@ -49,6 +56,7 @@ public struct TextView: View {
 		private let isScrollingEnabled: Bool
 		private let isUserInteractionEnabled: Bool
 		private let shouldWaitUntilCommit: Bool
+		private let shouldChange: ShouldChangeHandler?
 		
 		public init(
 			text: Binding<String>,
@@ -67,7 +75,8 @@ public struct TextView: View {
 			isSelectable: Bool,
 			isScrollingEnabled: Bool,
 			isUserInteractionEnabled: Bool,
-			shouldWaitUntilCommit: Bool
+			shouldWaitUntilCommit: Bool,
+			shouldChange: ShouldChangeHandler? = nil
 		) {
 			_text = text
 			_isEditing = isEditing
@@ -87,6 +96,7 @@ public struct TextView: View {
 			self.isScrollingEnabled = isScrollingEnabled
 			self.isUserInteractionEnabled = isUserInteractionEnabled
 			self.shouldWaitUntilCommit = shouldWaitUntilCommit
+			self.shouldChange = shouldChange
 		}
 		
 		public func makeCoordinator() -> Coordinator {
@@ -145,6 +155,7 @@ public struct TextView: View {
 	public typealias ContentType = UITextContentType
 	public typealias Autocorrection = UITextAutocorrectionType
 	public typealias Autocapitalization = UITextAutocapitalizationType
+	public typealias ShouldChangeHandler = (NSRange, String) -> Bool
 	
 	public static let defaultFont = UIFont.preferredFont(forTextStyle: .body)
 	
@@ -171,6 +182,7 @@ public struct TextView: View {
 	private let isScrollingEnabled: Bool
 	private let isUserInteractionEnabled: Bool
 	private let shouldWaitUntilCommit: Bool
+	private let shouldChange: ShouldChangeHandler?
 	
 	public init(
 		text: Binding<String>,
@@ -194,7 +206,8 @@ public struct TextView: View {
 		isSelectable: Bool = true,
 		isScrollingEnabled: Bool = true,
 		isUserInteractionEnabled: Bool = true,
-		shouldWaitUntilCommit: Bool = true
+		shouldWaitUntilCommit: Bool = true,
+		shouldChange: ShouldChangeHandler? = nil
 	) {
 		_text = text
 		_isEditing = isEditing
@@ -219,6 +232,7 @@ public struct TextView: View {
 		self.isScrollingEnabled = isScrollingEnabled
 		self.isUserInteractionEnabled = isUserInteractionEnabled
 		self.shouldWaitUntilCommit = shouldWaitUntilCommit
+		self.shouldChange = shouldChange
 	}
 	
 	private var _placeholder: String? {
@@ -243,7 +257,8 @@ public struct TextView: View {
 			isSelectable: isSelectable,
 			isScrollingEnabled: isScrollingEnabled,
 			isUserInteractionEnabled: isUserInteractionEnabled,
-			shouldWaitUntilCommit: shouldWaitUntilCommit
+			shouldWaitUntilCommit: shouldWaitUntilCommit,
+			shouldChange: shouldChange
 		)
 	}
 	
