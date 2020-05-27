@@ -40,6 +40,10 @@
 - `shouldWaitUntilCommit: Bool = true`
 	- For multi-stage input methods, setting this to `false` would make the `TextView` completely unusable.
 	- This option will ignore text changes when the user is still composing characters.
+-`shouldChange: TextView.ShouldChangeHandler = nil`
+	- `TextView.ShouldChangeHandler` is of type `(NSRange, String)` and is called
+	  with the arguments to `textView(_:shouldChangeTextIn:replacementText:)`.
+	  See that `UITextViewDelegate` method for more information.
 
 ## Example
 
