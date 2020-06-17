@@ -200,7 +200,7 @@ public struct TextView: View {
 		textColor: UIColor = .label,
 		placeholderColor: Color = .init(.placeholderText),
 		backgroundColor: UIColor = .clear,
-		returnType: UIReturnKeyType = .done,
+		returnType: UIReturnKeyType = .default,
 		contentType: ContentType? = nil,
 		autocorrection: Autocorrection = .default,
 		autocapitalization: Autocapitalization = .sentences,
