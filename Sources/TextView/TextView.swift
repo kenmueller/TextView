@@ -43,7 +43,6 @@ public struct TextView: View {
 		private let textVerticalPadding: CGFloat
 		private let font: UIFont
 		private let textColor: UIColor
-		private let backgroundColor: UIColor
 		private let returnType: UIReturnKeyType
 		private let contentType: ContentType?
 		private let autocorrection: Autocorrection
@@ -65,7 +64,6 @@ public struct TextView: View {
 			textVerticalPadding: CGFloat,
 			font: UIFont,
 			textColor: UIColor,
-			backgroundColor: UIColor,
 			returnType: UIReturnKeyType,
 			contentType: ContentType?,
 			autocorrection: Autocorrection,
@@ -87,7 +85,6 @@ public struct TextView: View {
 			self.textVerticalPadding = textVerticalPadding
 			self.font = font
 			self.textColor = textColor
-			self.backgroundColor = backgroundColor
 			self.returnType = returnType
 			self.contentType = contentType
 			self.autocorrection = autocorrection
@@ -109,6 +106,7 @@ public struct TextView: View {
 		public func makeUIView(context: Context) -> UITextView {
 			let textView = UITextView()
 			textView.delegate = context.coordinator
+			textView.backgroundColor = nil
 			return textView
 		}
 		
@@ -129,7 +127,6 @@ public struct TextView: View {
 			textView.textAlignment = textAlignment
 			textView.font = font
 			textView.textColor = textColor
-			textView.backgroundColor = backgroundColor
 			textView.returnKeyType = returnType
 			textView.textContentType = contentType
 			textView.autocorrectionType = autocorrection
@@ -246,10 +243,6 @@ public struct TextView: View {
 		self.shouldChange = shouldChange
 	}
 	
-	private var _placeholder: String? {
-		text.isEmpty ? placeholder : nil
-	}
-	
 	private var representable: Representable {
 		.init(
 			text: $text,
@@ -259,7 +252,6 @@ public struct TextView: View {
 			textVerticalPadding: textVerticalPadding,
 			font: font,
 			textColor: textColor,
-			backgroundColor: backgroundColor,
 			returnType: returnType,
 			contentType: contentType,
 			autocorrection: autocorrection,
@@ -275,27 +267,21 @@ public struct TextView: View {
 		)
 	}
 	
-	public var body: some View {
-		GeometryReader { geometry in
-			ZStack {
-				self.representable
-				self._placeholder.map { placeholder in
-					Text(placeholder)
-						.font(.init(self.font))
-						.foregroundColor(self.placeholderColor)
-						.padding(.horizontal, self.placeholderHorizontalPadding)
-						.padding(.vertical, self.placeholderVerticalPadding)
-						.frame(
-							width: geometry.size.width,
-							height: geometry.size.height,
-							alignment: self.placeholderAlignment
-						)
-						.onTapGesture {
-							self.isEditing = true
-						}
-				}
-			}
+	@ViewBuilder
+	private var placeholderView: some View {
+		if let placeholder = text.isEmpty ? placeholder : nil {
+			Text(placeholder)
+				.font(.init(font))
+				.foregroundColor(placeholderColor)
+				.padding(.horizontal, placeholderHorizontalPadding)
+				.padding(.vertical, placeholderVerticalPadding)
 		}
+	}
+
+	public var body: some View {
+		representable
+			.background(placeholderView, alignment: placeholderAlignment)
+			.background(Color(backgroundColor))
 	}
 }
 
