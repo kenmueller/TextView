@@ -285,4 +285,34 @@ public struct TextView: View {
 	}
 }
 
+struct TextView_Previews: PreviewProvider {
+	private struct PreviewView: View {
+		@State private var text: String = ""
+		@State private var isEditing: Bool = false
+
+		var body: some View {
+			VStack {
+				Button(action: { isEditing.toggle() }) {
+					Text("\(isEditing ? "Stop" : "Start") editing")
+						.padding()
+						.background(Color.white)
+				}
+				TextView(
+					text: $text,
+					isEditing: $isEditing,
+					placeholder: "Enter text here",
+					textAlignment: .natural,
+					backgroundColor: .systemBackground
+				)
+			}
+		}
+	}
+
+	static var previews: some View {
+		PreviewView()
+			.padding()
+			.background(Color.secondary.edgesIgnoringSafeArea(.all))
+	}
+}
+
 #endif
