@@ -15,10 +15,6 @@ let package = Package(
 		)
 	],
 	targets: [
-		.target(name: "TextView"),
-		.testTarget(
-			name: "TextViewTests",
-			dependencies: ["TextView"]
-		)
+		.target(name: "TextView")
 	]
 )
