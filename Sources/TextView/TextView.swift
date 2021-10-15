@@ -56,6 +56,7 @@ public struct TextView: View {
 		private let isUserInteractionEnabled: Bool
 		private let shouldWaitUntilCommit: Bool
 		private let shouldChange: ShouldChangeHandler?
+        private let keyboardType : UIKeyboardType
 		
 		public init(
 			text: Binding<String>,
@@ -77,7 +78,8 @@ public struct TextView: View {
 			isScrollingEnabled: Bool,
 			isUserInteractionEnabled: Bool,
 			shouldWaitUntilCommit: Bool,
-			shouldChange: ShouldChangeHandler? = nil
+			shouldChange: ShouldChangeHandler? = nil,
+            keyboardType : UIKeyboardType
 		) {
 			_text = text
 			_isEditing = isEditing
@@ -100,6 +102,7 @@ public struct TextView: View {
 			self.isUserInteractionEnabled = isUserInteractionEnabled
 			self.shouldWaitUntilCommit = shouldWaitUntilCommit
 			self.shouldChange = shouldChange
+            self.keyboardType = keyboardType
 		}
 		
 		public func makeCoordinator() -> Coordinator {
@@ -140,6 +143,7 @@ public struct TextView: View {
 			textView.isSelectable = isSelectable
 			textView.isScrollEnabled = isScrollingEnabled
 			textView.isUserInteractionEnabled = isUserInteractionEnabled
+            textView.keyboardType = keyboardType
 			
 			textView.textContainerInset = .init(
 				top: textVerticalPadding,
@@ -190,6 +194,7 @@ public struct TextView: View {
 	private let isUserInteractionEnabled: Bool
 	private let shouldWaitUntilCommit: Bool
 	private let shouldChange: ShouldChangeHandler?
+    private let keyboardType : UIKeyboardType
 	
 	public init(
 		text: Binding<String>,
@@ -216,7 +221,8 @@ public struct TextView: View {
 		isScrollingEnabled: Bool = true,
 		isUserInteractionEnabled: Bool = true,
 		shouldWaitUntilCommit: Bool = true,
-		shouldChange: ShouldChangeHandler? = nil
+		shouldChange: ShouldChangeHandler? = nil,
+        keyboardType : UIKeyboardType = .default
 	) {
 		_text = text
 		_isEditing = isEditing
@@ -244,6 +250,7 @@ public struct TextView: View {
 		self.isUserInteractionEnabled = isUserInteractionEnabled
 		self.shouldWaitUntilCommit = shouldWaitUntilCommit
 		self.shouldChange = shouldChange
+        self.keyboardType = keyboardType
 	}
 	
 	private var _placeholder: String? {
@@ -271,7 +278,8 @@ public struct TextView: View {
 			isScrollingEnabled: isScrollingEnabled,
 			isUserInteractionEnabled: isUserInteractionEnabled,
 			shouldWaitUntilCommit: shouldWaitUntilCommit,
-			shouldChange: shouldChange
+            shouldChange: shouldChange,
+            keyboardType: keyboardType
 		)
 	}
 	
